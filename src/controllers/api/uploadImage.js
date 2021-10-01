@@ -11,7 +11,7 @@ module.exports = async (req, res, next) => {
 
     await db.insert(image);
 
-    return res.json(image.id);
+    return res.json({ id: image.id });
   } catch (err) {
     return next(err);
   }
