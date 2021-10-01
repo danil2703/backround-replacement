@@ -3,24 +3,28 @@ const path = require('path');
 const fs = require('fs');
 const { imageFolder } = require('../../config');
 
-module.exports = async (req, res) => {
-  const { front, back, color, threshold } = req.query;
+module.exports = async (req, res, next) => {
+  try {
+    const { front, back, color, threshold } = req.query;
 
-  const catExample = fs.createReadStream(
-    path.resolve(imageFolder, `${front}.jpg`)
-  );
+    const catExample = fs.createReadStream(
+      path.resolve(imageFolder, `${front}.jpg`)
+    );
 
-  const spaceExample = fs.createReadStream(
-    path.resolve(imageFolder, `${back}.jpg`)
-  );
-  const merged = await replaceBackground(
-    catExample,
-    spaceExample,
-    color.split(','),
-    threshold
-  );
+    const spaceExample = fs.createReadStream(
+      path.resolve(imageFolder, `${back}.jpg`)
+    );
+    const merged = await replaceBackground(
+      catExample,
+      spaceExample,
+      color.split(','),
+      threshold
+    );
 
-  res.contentType('image/jpeg');
+    res.contentType('image/jpeg');
 
-  merged.pipe(res);
+    merged.pipe(res);
+  } catch (err) {
+    next(err);
+  }
 };
