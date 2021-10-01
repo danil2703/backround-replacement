@@ -1,18 +1,16 @@
 const multer = require('multer');
-const moment = require('moment');
+const { nanoid } = require('nanoid');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');
   },
   filename(req, file, cb) {
-    const date = moment().format('DDMMYYYY--HHmmss');
-    cb(null, `${date}-${file.originalname}`);
+    cb(null, `${nanoid()}.jpg`);
   },
 });
 
 const fileFilter = (req, file, cb) => {
-  console.log(file.mimetype);
   if (file.mimetype === 'image/jpeg') {
     cb(null, true);
   } else {

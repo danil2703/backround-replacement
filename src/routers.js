@@ -7,6 +7,9 @@ apiRouter.get('/', function (req, res) {
   res.send('Birds home page');
 });
 
-apiRouter.post('/upload', upload.single('file'), api.uploadImage);
-
+apiRouter.post('/upload', upload.single('image'), api.uploadImage);
+apiRouter.get('/list', api.getList);
+apiRouter.delete('/image/:id', api.deleteImage);
+apiRouter.get('/image/:id', api.getImage);
+apiRouter.get('/merge', api.merge);
 module.exports = { apiRouter };
