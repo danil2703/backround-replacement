@@ -10,7 +10,7 @@ module.exports = async (req, res, next) => {
     );
 
     await db.insert(image);
-
+    res.statusCode = 201;
     return res.json({ id: image.id });
   } catch (err) {
     return next(err);
