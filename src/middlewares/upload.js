@@ -3,7 +3,7 @@ const { nanoid } = require('nanoid');
 
 const storage = multer.diskStorage({
   destination(req, file, cb) {
-    cb(null, 'uploads/');
+    cb(null, 'uploads');
   },
   filename(req, file, cb) {
     cb(null, `${nanoid()}.jpg`);
@@ -11,7 +11,7 @@ const storage = multer.diskStorage({
 });
 
 const fileFilter = (req, file, cb) => {
-  if (file.mimetype === 'image/jpeg') {
+  if (file.mimetype === 'image/jpeg' || file.mimetype === 'image/jpg') {
     cb(null, true);
   } else {
     cb(null, false);
