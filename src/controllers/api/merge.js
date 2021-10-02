@@ -21,7 +21,7 @@ module.exports = async (req, res, next) => {
       threshold
     );
 
-    res.header('Content-disposition', 'attachment; filename=merge.jpeg');
+    res.contentType('image/jpeg');
     merged.pipe(res);
   } catch (err) {
     next(err);
