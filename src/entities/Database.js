@@ -42,6 +42,10 @@ class Database extends EventEmitter {
   async remove(imageId) {
     const imageRaw = this.idToImage[imageId];
 
+    if (!imageRaw) {
+      return null;
+    }
+
     const image = new Image(
       imageRaw.id,
       imageRaw.size,

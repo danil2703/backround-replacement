@@ -2,21 +2,27 @@ const { replaceBackground } = require('backrem');
 const path = require('path');
 const fs = require('fs');
 const { imageFolder } = require('../../config');
+const { BadRequestApiError } = require('../../validators/errors/ApiError');
 
 module.exports = async (req, res, next) => {
   try {
     const { front, back, color, threshold } = req.query;
 
-    const catExample = fs.createReadStream(
+    if (!front || !back || !color || !threshold) {
+      throw new BadRequestApiError('Bad request');
+    }
+
+    const frontStream = fs.createReadStream(
       path.resolve(imageFolder, `${front}.jpg`)
     );
 
-    const spaceExample = fs.createReadStream(
+    const backStream = fs.createReadStream(
       path.resolve(imageFolder, `${back}.jpg`)
     );
+
     const merged = await replaceBackground(
-      catExample,
-      spaceExample,
+      frontStream,
+      backStream,
       color.split(','),
       threshold
     );

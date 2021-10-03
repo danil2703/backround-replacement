@@ -8,4 +8,6 @@ apiRouter.get('/list', api.getList);
 apiRouter.delete('/image/:id', api.deleteImage);
 apiRouter.get('/image/:id', api.getImage);
 apiRouter.get('/merge', api.merge);
+apiRouter.get('*', api.notFound);
+
 module.exports = { apiRouter };

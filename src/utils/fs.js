@@ -3,7 +3,6 @@ const util = require('util');
 
 const writeFileAsync = util.promisify(fs.writeFile);
 const unlinkFileAsync = util.promisify(fs.unlink);
-const existsFileAsync = util.promisify(fs.exists);
 
 module.exports = {
   writeFile: async (path, content) => {
@@ -16,9 +15,5 @@ module.exports = {
     } catch (err) {
       console.log(`removeFile error: file ${path} doesn't exist...`);
     }
-  },
-
-  exists: async (path) => {
-    return await existsFileAsync(path);
   },
 };

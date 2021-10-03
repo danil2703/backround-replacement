@@ -6,6 +6,7 @@ class ApiError extends Error {
   }
 
   sendResponse(res) {
+    res.contentType('application/json');
     return res.status(this.status).json({ message: this.message });
   }
 }
